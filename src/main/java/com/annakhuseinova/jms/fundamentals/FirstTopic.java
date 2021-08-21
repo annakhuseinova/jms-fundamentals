@@ -1,4 +1,4 @@
-package com.annakhuseinova.jms.fundamentals;
+ package com.annakhuseinova.jms.fundamentals;
 
 import javax.jms.*;
 import javax.naming.InitialContext;
