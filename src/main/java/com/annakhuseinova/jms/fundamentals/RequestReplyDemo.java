@@ -24,7 +24,9 @@ public class RequestReplyDemo {
             System.out.println(messageReceived.getText());
 
             JMSProducer replyProducer = jmsContext.createProducer();
-            replyProducer.send(messageReceived.getJMSReplyTo(), "You are awesome!");
+            TextMessage replyMessage = jmsContext.createTextMessage("You are awesome!");
+            replyMessage.setJMSCorrelationID(messageReceived.getJMSMessageID());
+            replyProducer.send(messageReceived.getJMSReplyTo(), replyMessage);
 
             JMSConsumer replyConsumer = jmsContext.createConsumer(messageReceived.getJMSReplyTo());
             System.out.println(replyConsumer.receiveBody(String.class));
