@@ -16,10 +16,11 @@ public class MessagePropertiesDemo {
             TextMessage message = jmsContext.createTextMessage("Arise Awake and stop not till the goal is reached");
             message.setBooleanProperty("loggedIn", true);
             message.setStringProperty("userToken", "abc123");
+
             producer.send(queue, message);
-            Message messageReceived = jmsContext.createConsumer(queue).receive(5000);
-            System.out.println(messageReceived.getBooleanProperty("loggedIn"));
-            System.out.println(messageReceived.getBooleanProperty("userToken"));
+            StreamMessage messageReceived = (StreamMessage) jmsContext.createConsumer(queue).receive(5000);
+            System.out.println(messageReceived.readBoolean());
+            System.out.println(messageReceived.readFloat());
         }
     }
 }
